@@ -1,0 +1,15 @@
+{
+    "id": "8b98675e-8c94-4fd3-8df0-bac5f6f715b4",
+    "version": "0.0.1",
+    "requiredApiVersion": "^1.4.0",
+    "iconFile": "icon.png",
+    "author": {
+        "name": "Rodriq",
+        "homepage": "https://github.com/Rodriq",
+        "support": "www.rodriq.engineer.com"
+    },
+    "name": "Unsplash Integration",
+    "nameSlug": "unsplash-integration",
+    "classFile": "UnsplashIntegrationApp.ts",
+    "description": "Integrate RC with Unsplash for quality images"
+}
