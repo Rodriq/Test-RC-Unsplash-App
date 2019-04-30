@@ -2,7 +2,7 @@ import { ApiEndpoint, IApiRequest, IApiEndpoint, IApiResponse } from "@rocket.ch
 import { IModify, IPersistence, IRead, IHttp } from "@rocket.chat/apps-engine/definition/accessors";
 
 export class WebhookEndpoint extends ApiEndpoint {
-    public path = '/webhook';
+    public path = 'webhook';
 
     public async post(
         request: IApiRequest,
