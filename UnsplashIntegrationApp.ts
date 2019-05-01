@@ -1,6 +1,7 @@
 import {
     IAppAccessors,
     IConfigurationExtend,
+    IEnvironmentRead,
     ILogger,
 } from '@rocket.chat/apps-engine/definition/accessors';
 import { ApiSecurity, ApiVisibility } from '@rocket.chat/apps-engine/definition/api';
@@ -14,19 +15,8 @@ export class UnsplashIntegrationApp extends App {
         super(info, logger, accessors);
     }
 
-    // public async initialize(): Promise<void> {
-    //     console.log('This is my Unsplash Integration');
-    // }
+    protected async extendConfiguration(configuration: IConfigurationExtend, environment: IEnvironmentRead): Promise<void> {
 
-    protected async extendConfiguration(configuration: IConfigurationExtend): Promise<void> {
-        configuration.api.provideApi({
-            visibility: ApiVisibility.PUBLIC,
-            security: ApiSecurity.UNSECURE,
-            endpoints: [
-                new WebhookEndpoint(this),
-            ],
-        });
-
-        configuration.slashCommands.provideSlashCommand(new UnsplashCommand(this));
+        await configuration.slashCommands.provideSlashCommand(new UnsplashCommand(this));
     }
 }
