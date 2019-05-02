@@ -1,6 +1,6 @@
 import { IHttp, IModify, IPersistence, IRead } from '@rocket.chat/apps-engine/definition/accessors';
 import { App } from '@rocket.chat/apps-engine/definition/App';
-import { SlashCommandContext } from '@rocket.chat/apps-engine/definition/slashcommands';
+import { ISlashCommandPreview, SlashCommandContext } from '@rocket.chat/apps-engine/definition/slashcommands';
 import { ISlashCommand } from '@rocket.chat/apps-engine/definition/slashcommands/ISlashCommand';
 
 export class UnsplashCommand implements ISlashCommand {
@@ -14,30 +14,30 @@ export class UnsplashCommand implements ISlashCommand {
         this.command = 'unsplash';
         this.i18nParamsExample = 'Unsplash-search-term';
         this.i18nDescription = 'Unsplash-command-description';
-        this.providesPreview = false;
+        this.providesPreview = true;
     }
 
     public async executor(context: SlashCommandContext, read: IRead, modify: IModify, http: IHttp, persis: IPersistence): Promise<void> {
-        // const message = await modify.getCreator().startMessage();
-        // const sender = await read.getUserReader().getById('rocket.cat');
-        // const room = context.getRoom();
-
-        // if (!room) {
-        //     throw new Error('No room is configured for this');
-        // }
-
-        // const usernameAlias = await read.getEnvironmentReader().getSettings().getById('unsplash-user-alias');
-
-        // message
-        //     .setSender(sender)
-        //     .setUsernameAlias(usernameAlias.value)
-        //     .setGroupable(false)
-        //     .setRoom(room)
-        //     .setText('Unsplash call recieved');
-
-        // modify.getNotifier().notifyRoom(room, message.getMessage());
 
         console.log('Your unplash slash command is working');
+    }
+
+    public previewer(context: SlashCommandContext, read: IRead, modify: IModify, http: IHttp, persis: IPersistence): Promise<ISlashCommandPreview> {
+        const baseURL: string = 'https://api.unsplash.com';
+        let word: any = context.getArguments();
+        console.log(word);
+        // console.log('-------------------------');
+        console.log(`${baseURL}/search/photos?query=${word}`);
+
+        http.get(`${baseURL}/search/photos?query=${word}`, {
+            params: {
+                client_id: 'to be added',
+            },
+        });
+        return this.success();
+    }
+    public success(): Promise<ISlashCommandPreview> {
+        throw new Error('Method not implemented.');
     }
 
 }
