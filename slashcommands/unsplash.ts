@@ -25,14 +25,20 @@ export class UnsplashCommand implements ISlashCommand {
     public previewer(context: SlashCommandContext, read: IRead, modify: IModify, http: IHttp, persis: IPersistence): Promise<ISlashCommandPreview> {
         const baseURL: string = 'https://api.unsplash.com';
         let word: any = context.getArguments();
-        console.log(word);
-        // console.log('-------------------------');
+        let items: any;
         console.log(`${baseURL}/search/photos?query=${word}`);
+
+// Search for a photo from unsplash using the gotten keyword
 
         http.get(`${baseURL}/search/photos?query=${word}`, {
             params: {
-                client_id: 'to be added',
+                client_id: 'dcfdc07a0e58418158e22b05d40e4a00758b951ab756b1ea400227f318a7846c',
             },
+        }).then((res) => {
+            if (res.statusCode === 200) {
+                items = res.data;
+                console.log(items);
+            }
         });
         return this.success();
     }
